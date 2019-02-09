@@ -21,7 +21,7 @@ public class FrontScreen {
 	public FrontScreen(){
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             widthscreen = (int) (screenSize.getWidth() / Snake.scl);
-            heightscreen = (int) (screenSize.getHeight() / Snake.scl) - 5;
+            heightscreen = (int) (screenSize.getHeight() / Snake.scl) - 4;
 		createFrontScreen();
 	}
 	private void createFrontScreen(){

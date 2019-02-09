@@ -42,10 +42,10 @@ public class Display {
 		
 		counter = new JLabel();
 		counter.setText("Score: " + (Game.s.len - 1));
-		counter.setFont(new Font("Courier New", Font.ITALIC, 20));
+		counter.setFont(new Font("Courier New", Font.ITALIC, 30));
 	    counter.setHorizontalAlignment(JLabel.CENTER);
 	    counter.setVerticalAlignment(JLabel.CENTER);
-	    counter.setPreferredSize(new Dimension(100, 50));
+	    counter.setPreferredSize(new Dimension(100, 35));
 	    counter.setBackground(new Color(130, 221, 130));
 	    counter.setOpaque(true);
 		
