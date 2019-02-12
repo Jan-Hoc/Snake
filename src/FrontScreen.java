@@ -11,9 +11,13 @@ import javax.swing.JFrame;
 
 public class FrontScreen {
 	private JFrame frame;
+	public static int fpseasy = 12;
+	public static int fpsmedium = 20;
+	public static int fpshard = 30;
+	public static int fpsarcade= 7;
 
 	private String title = "Choose Difficulty!";
-	private int width = 900;
+	private int width = 1200;
 	private int height = 310;
         private int widthscreen;
         private int heightscreen;
@@ -44,7 +48,7 @@ public class FrontScreen {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				Game game = new Game("Snake", widthscreen * Snake.scl, heightscreen *Snake.scl, 12);
+				Game game = new Game("Snake", widthscreen * Snake.scl, heightscreen *Snake.scl, fpseasy);
 				game.start();
 
 			}
@@ -60,7 +64,7 @@ public class FrontScreen {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				Game game = new Game("Snake", widthscreen * Snake.scl, heightscreen * Snake.scl, 20);
+				Game game = new Game("Snake", widthscreen * Snake.scl, heightscreen * Snake.scl, fpsmedium);
 				game.start();
 
 			}
@@ -76,7 +80,23 @@ public class FrontScreen {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				Game game = new Game("Snake", widthscreen * Snake.scl, heightscreen * Snake.scl, 30);
+				Game game = new Game("Snake", widthscreen * Snake.scl, heightscreen * Snake.scl, fpshard);
+				game.start();
+
+			}
+		});
+		
+		JButton d4 = new JButton("<html>Click here to start!<br/>LEVEL: ARCADE!</html>");
+		d4.setFont(new Font("Courier New", Font.ITALIC, 20));
+		d4.setBackground(new Color(80, 180, 80));
+		d4.setPreferredSize(new Dimension(280, 260));
+
+		d4.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+				Game game = new Game("Snake", widthscreen * Snake.scl, heightscreen * Snake.scl, fpsarcade);
 				game.start();
 
 			}
@@ -84,6 +104,7 @@ public class FrontScreen {
 	frame.add(d1);
 	frame.add(d2);
 	frame.add(d3);
+	frame.add(d4);
 	
 	frame.pack();
 	}

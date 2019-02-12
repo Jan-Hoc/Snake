@@ -44,7 +44,7 @@ public class DisplayDead implements KeyListener {
 		frame.addKeyListener(this);
 
 		JLabel Label = new JLabel();
-		Label.setText("<html>You died!<br/>Your Score was: " + (Game.s.len - 1) + "<br/>Your Highscore is: "
+		Label.setText("<html>You died!<br/>Your Score was: " + (Game.s.len - Game.s.initlen) + "<br/>Your Highscore is: "
 				+ Game.highscore + "</html>");
 		Label.setFont(new Font("Courier New", Font.ITALIC, 20));
 		Label.setBackground(new Color(169, 221, 169));

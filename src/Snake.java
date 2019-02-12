@@ -202,15 +202,15 @@ public class Snake implements KeyListener {
 				this.positions[i][1] = this.oldpositions[i][1];
 			}
 
-			if (len > 3) {
-				this.positions[len - 1][0] = this.positions[len - 2][0]
-						+ (this.positions[len - 2][0] - this.positions[len - 3][0]);
-				this.positions[len - 1][1] = this.positions[len - 2][1]
-						+ (this.positions[len - 2][1] - this.positions[len - 3][1]);
-			} else {
-				this.positions[len - 1][0] = this.positions[len - 2][0] - this.xspeed;
-				this.positions[len - 1][1] = this.positions[len - 2][1] - this.yspeed;
+			this.positions[len - 1][0] = this.positions[len - 2][0]
+					+ (this.positions[len - 2][0] - this.positions[len - 3][0]);
+			this.positions[len - 1][1] = this.positions[len - 2][1]
+					+ (this.positions[len - 2][1] - this.positions[len - 3][1]);
+			
+			if(Game.initfps == FrontScreen.fpsarcade) {
+				Game.fps += 1;
 			}
+			
 			return true;
 		} else {
 			return false;
@@ -231,7 +231,7 @@ public class Snake implements KeyListener {
 		BufferedWriter writer = null;
 		if (len - initlen > Integer.parseInt(Game.highscore)) {
 			Game.highscore = Integer.toString(len - initlen);
-			if (Game.fps == 12) {
+			if (Game.initfps == FrontScreen.fpseasy) {
 				File scorefile = new File("highscoreEasy.dat");
 				if (!scorefile.exists()) {
 					try {
@@ -257,7 +257,7 @@ public class Snake implements KeyListener {
 				}
 			}
 
-			else if (Game.fps == 20) {
+			else if (Game.initfps == FrontScreen.fpsmedium) {
 				File scorefile = new File("highscoreMedium.dat");
 				if (!scorefile.exists()) {
 					try {
@@ -284,8 +284,35 @@ public class Snake implements KeyListener {
 
 			}
 
-			else if (Game.fps == 30) {
+			else if (Game.initfps == FrontScreen.fpshard) {
 				File scorefile = new File("highscoreHard.dat");
+				if (!scorefile.exists()) {
+					try {
+						scorefile.createNewFile();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				try {
+					writefile = new FileWriter(scorefile);
+					writer = new BufferedWriter(writefile);
+					writer.write(Game.highscore);
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					if (writer != null) {
+						try {
+							writer.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+
+				}
+			}
+
+			else {
+				File scorefile = new File("highscoreArcade.dat");
 				if (!scorefile.exists()) {
 					try {
 						scorefile.createNewFile();

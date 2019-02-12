@@ -10,6 +10,7 @@ public class Game implements Runnable {
 	public static int width;
 	public static int height;
 	static int fps;
+	static int initfps;
 	public static String title;
 	static String highscore = "0";
 
@@ -28,6 +29,7 @@ public class Game implements Runnable {
 		this.height = height;
 		this.title = title;
 		this.fps = fps;
+		this.initfps = fps;
 		this.s = new Snake(6, 3, 1, 0);
 		this.f = new Food();
 	}
@@ -119,7 +121,7 @@ public class Game implements Runnable {
 		FileReader readFile = null;
 		BufferedReader reader = null;
 
-		if (fps == 12) {
+		if (initfps == FrontScreen.fpseasy) {
 			try {
 				readFile = new FileReader("highscoreEasy.dat");
 				reader = new BufferedReader(readFile);
@@ -137,7 +139,7 @@ public class Game implements Runnable {
 					return "0";
 				}
 			}
-		} else if (fps == 20) {
+		} else if (initfps == FrontScreen.fpsmedium) {
 			try {
 				readFile = new FileReader("highscoreMedium.dat");
 				reader = new BufferedReader(readFile);
@@ -155,9 +157,29 @@ public class Game implements Runnable {
 					return "0";
 				}
 			}
-		} else {
+		} else if (initfps == FrontScreen.fpshard) {
 			try {
 				readFile = new FileReader("highscoreHard.dat");
+				reader = new BufferedReader(readFile);
+				try {
+					return reader.readLine();
+				} catch (Exception e) {
+					return "0";
+				}
+			} catch (FileNotFoundException e) {
+				return "0";
+			} finally {
+				try {
+					if (reader != null) {
+						reader.close();
+					}
+				} catch (Exception e) {
+					return "0";
+				}
+			} 
+		} else {
+			try {
+				readFile = new FileReader("highscoreArcade.dat");
 				reader = new BufferedReader(readFile);
 				try {
 					return reader.readLine();
