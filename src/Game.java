@@ -65,7 +65,7 @@ public class Game implements Runnable {
 		bs.show();
 		gf.dispose();
 		gs.dispose();
-		Display.counter.setText("<html><pre>Score: " + (s.len - 1) + "\t Highscore: " + highscore + "</pre></html>");
+		Display.counter.setText("<html><pre>Score: " + (s.len - s.initlen) + "\t Highscore: " + highscore + "</pre></html>");
 
 	}
 

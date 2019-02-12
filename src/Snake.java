@@ -13,9 +13,10 @@ public class Snake implements KeyListener {
 	int xspeed;
 	int yspeed;
 	public static int scl = 25;
-	public int len = 1;
-	private int[][] positions = new int[len][2];
-	private int[][] oldpositions = new int[len][2];
+	public int initlen = 3;
+	public int len = initlen;
+	private int[][] positions = new int[initlen][2];
+	private int[][] oldpositions = new int[initlen][2];
 	private BufferedImage headup;
 	private BufferedImage headdown;
 	private BufferedImage headleft;
@@ -34,6 +35,11 @@ public class Snake implements KeyListener {
 		this.y = y;
 		this.xspeed = xspeed;
 		this.yspeed = yspeed;
+		
+		for(int i = 0; i < positions.length; i++) {
+			positions[i][0] = this.x - i;
+			positions[i][1] = this.y;
+		}
 		try {
 			headup = ImageIO.read(getClass().getResourceAsStream("/graphics/headup.png"));
 		} catch (IOException e) {
@@ -257,8 +263,8 @@ public class Snake implements KeyListener {
 	public void dead() {
 		FileWriter writefile = null;
 		BufferedWriter writer = null;
-		if (len - 1 > Integer.parseInt(Game.highscore)) {
-			Game.highscore = Integer.toString(len - 1);
+		if (len - initlen > Integer.parseInt(Game.highscore)) {
+			Game.highscore = Integer.toString(len - initlen);
 			if (Game.fps == 12) {
 				File scorefile = new File("highscoreEasy.dat");
 				if (!scorefile.exists()) {
@@ -275,7 +281,7 @@ public class Snake implements KeyListener {
 				} catch (Exception e) {
 					e.printStackTrace();
 				} finally {
-					if(writer != null) {
+					if (writer != null) {
 						try {
 							writer.close();
 						} catch (IOException e) {
@@ -290,25 +296,26 @@ public class Snake implements KeyListener {
 				if (!scorefile.exists()) {
 					try {
 						scorefile.createNewFile();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					try {
-						writefile = new FileWriter(scorefile);
-						writer = new BufferedWriter(writefile);
-						writer.write(Game.highscore);
 					} catch (Exception e) {
 						e.printStackTrace();
-					} finally {
-						if(writer != null) {
-							try {
-								writer.close();
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
+					}
+				}
+				try {
+					writefile = new FileWriter(scorefile);
+					writer = new BufferedWriter(writefile);
+					writer.write(Game.highscore);
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					if (writer != null) {
+						try {
+							writer.close();
+						} catch (IOException e) {
+							e.printStackTrace();
 						}
 					}
 				}
+
 			}
 
 			else if (Game.fps == 30) {
@@ -319,24 +326,25 @@ public class Snake implements KeyListener {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					try {
-						writefile = new FileWriter(scorefile);
-						writer = new BufferedWriter(writefile);
-						writer.write(Game.highscore);
-					} catch (Exception e) {
-						e.printStackTrace();
-					} finally {
-						if(writer != null) {
-							try {
-								writer.close();
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
+				}
+				try {
+					writefile = new FileWriter(scorefile);
+					writer = new BufferedWriter(writefile);
+					writer.write(Game.highscore);
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					if (writer != null) {
+						try {
+							writer.close();
+						} catch (IOException e) {
+							e.printStackTrace();
 						}
 					}
+
 				}
 			}
-		}	
+		}
 		new DisplayDead("Deathscreen", 400, 300);
 	}
 
