@@ -14,7 +14,7 @@ public class FrontScreen {
 	public static int fpseasy = 12;
 	public static int fpsmedium = 20;
 	public static int fpshard = 30;
-	public static int fpsarcade= 7;
+	public static int fpsarcade= 10;
 
 	private String title = "Choose Difficulty!";
 	private int width = 1200;
