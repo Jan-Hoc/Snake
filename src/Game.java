@@ -65,7 +65,8 @@ public class Game implements Runnable {
 		bs.show();
 		gf.dispose();
 		gs.dispose();
-		Display.counter.setText("<html><pre>Score: " + (s.len - s.initlen) + "\t Highscore: " + highscore + "</pre></html>");
+		Display.counter
+				.setText("<html><pre>Score: " + (s.len - s.initlen) + "\t Highscore: " + highscore + "</pre></html>");
 
 	}
 
@@ -117,7 +118,7 @@ public class Game implements Runnable {
 	public static String GetHighScore() {
 		FileReader readFile = null;
 		BufferedReader reader = null;
-		
+
 		if (fps == 12) {
 			try {
 				readFile = new FileReader("highscoreEasy.dat");
@@ -136,8 +137,7 @@ public class Game implements Runnable {
 					return "0";
 				}
 			}
-		}
-		else if (fps == 20) {
+		} else if (fps == 20) {
 			try {
 				readFile = new FileReader("highscoreMedium.dat");
 				reader = new BufferedReader(readFile);
@@ -155,8 +155,7 @@ public class Game implements Runnable {
 					return "0";
 				}
 			}
-		}
-		else {
+		} else {
 			try {
 				readFile = new FileReader("highscoreHard.dat");
 				reader = new BufferedReader(readFile);

@@ -35,8 +35,8 @@ public class Snake implements KeyListener {
 		this.y = y;
 		this.xspeed = xspeed;
 		this.yspeed = yspeed;
-		
-		for(int i = 0; i < positions.length; i++) {
+
+		for (int i = 0; i < positions.length; i++) {
 			positions[i][0] = this.x - i;
 			positions[i][1] = this.y;
 		}
@@ -136,73 +136,39 @@ public class Snake implements KeyListener {
 	public void show(Graphics g) {
 		int i = 0;
 		while (i < len) {
-			if (i < 2) {
-				if (i == 0) {
-					if (this.xspeed == 1) {
-						g.drawImage(headright, positions[i][0] * scl, positions[i][1] * scl, null);
-					} else if (this.xspeed == -1) {
-						g.drawImage(headleft, positions[i][0] * scl, positions[i][1] * scl, null);
-					} else if (this.yspeed == 1) {
-						g.drawImage(headdown, positions[i][0] * scl, positions[i][1] * scl, null);
-					} else {
-						g.drawImage(headup, positions[i][0] * scl, positions[i][1] * scl, null);
-					}
-
-				} else if (i == len - 1) {
-					if (this.xspeed == 1) {
-						g.drawImage(tailright, positions[i][0] * scl, positions[i][1] * scl, null);
-					} else if (this.xspeed == -1) {
-						g.drawImage(tailleft, positions[i][0] * scl, positions[i][1] * scl, null);
-					} else if (this.yspeed == 1) {
-						g.drawImage(taildown, positions[i][0] * scl, positions[i][1] * scl, null);
-					} else {
-						g.drawImage(tailup, positions[i][0] * scl, positions[i][1] * scl, null);
-					}
+			if (i == 0) {
+				if (this.xspeed == 1) {
+					g.drawImage(headright, positions[i][0] * scl, positions[i][1] * scl, null);
+				} else if (this.xspeed == -1) {
+					g.drawImage(headleft, positions[i][0] * scl, positions[i][1] * scl, null);
+				} else if (this.yspeed == 1) {
+					g.drawImage(headdown, positions[i][0] * scl, positions[i][1] * scl, null);
 				} else {
-					if (this.xspeed == 1) {
-						g.drawImage(bodyright, positions[i][0] * scl, positions[i][1] * scl, null);
-					} else if (this.xspeed == -1) {
-						g.drawImage(bodyleft, positions[i][0] * scl, positions[i][1] * scl, null);
-					} else if (this.yspeed == 1) {
-						g.drawImage(bodydown, positions[i][0] * scl, positions[i][1] * scl, null);
-					} else {
-						g.drawImage(bodyup, positions[i][0] * scl, positions[i][1] * scl, null);
-					}
+					g.drawImage(headup, positions[i][0] * scl, positions[i][1] * scl, null);
+				}
+
+			} else if (i == len - 1) {
+				if ((this.positions[i][0] - this.positions[i - 1][0]) == -1) {
+					g.drawImage(tailright, positions[i][0] * scl, positions[i][1] * scl, null);
+				} else if ((this.positions[i][0] - this.positions[i - 1][0]) == 1) {
+					g.drawImage(tailleft, positions[i][0] * scl, positions[i][1] * scl, null);
+				} else if ((this.positions[i][1] - this.positions[i - 1][1]) == -1) {
+					g.drawImage(taildown, positions[i][0] * scl, positions[i][1] * scl, null);
+				} else {
+					g.drawImage(tailup, positions[i][0] * scl, positions[i][1] * scl, null);
 				}
 			} else {
-				if (i == 0) {
-					if (this.xspeed == 1) {
-						g.drawImage(headright, positions[i][0] * scl, positions[i][1] * scl, null);
-					} else if (this.xspeed == -1) {
-						g.drawImage(headleft, positions[i][0] * scl, positions[i][1] * scl, null);
-					} else if (this.yspeed == 1) {
-						g.drawImage(headdown, positions[i][0] * scl, positions[i][1] * scl, null);
-					} else {
-						g.drawImage(headup, positions[i][0] * scl, positions[i][1] * scl, null);
-					}
-
-				} else if (i == len - 1) {
-					if ((this.positions[i][0] - this.positions[i - 1][0]) == -1) {
-						g.drawImage(tailright, positions[i][0] * scl, positions[i][1] * scl, null);
-					} else if ((this.positions[i][0] - this.positions[i - 1][0]) == 1) {
-						g.drawImage(tailleft, positions[i][0] * scl, positions[i][1] * scl, null);
-					} else if ((this.positions[i][1] - this.positions[i - 1][1]) == -1) {
-						g.drawImage(taildown, positions[i][0] * scl, positions[i][1] * scl, null);
-					} else {
-						g.drawImage(tailup, positions[i][0] * scl, positions[i][1] * scl, null);
-					}
+				if ((this.positions[i][0] - this.positions[i - 1][0]) == -1) {
+					g.drawImage(bodyright, positions[i][0] * scl, positions[i][1] * scl, null);
+				} else if ((this.positions[i][0] - this.positions[i - 1][0]) == 1) {
+					g.drawImage(bodyleft, positions[i][0] * scl, positions[i][1] * scl, null);
+				} else if ((this.positions[i][1] - this.positions[i - 1][1]) == -1) {
+					g.drawImage(bodydown, positions[i][0] * scl, positions[i][1] * scl, null);
 				} else {
-					if ((this.positions[i][0] - this.positions[i - 1][0]) == -1) {
-						g.drawImage(bodyright, positions[i][0] * scl, positions[i][1] * scl, null);
-					} else if ((this.positions[i][0] - this.positions[i - 1][0]) == 1) {
-						g.drawImage(bodyleft, positions[i][0] * scl, positions[i][1] * scl, null);
-					} else if ((this.positions[i][1] - this.positions[i - 1][1]) == -1) {
-						g.drawImage(bodydown, positions[i][0] * scl, positions[i][1] * scl, null);
-					} else {
-						g.drawImage(bodyup, positions[i][0] * scl, positions[i][1] * scl, null);
-					}
+					g.drawImage(bodyup, positions[i][0] * scl, positions[i][1] * scl, null);
 				}
 			}
+
 			i += 1;
 		}
 	}
