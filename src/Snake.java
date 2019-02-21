@@ -6,7 +6,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 public class Snake implements KeyListener {
 	private int x, y;
@@ -29,6 +32,8 @@ public class Snake implements KeyListener {
 	private BufferedImage taildown;
 	private BufferedImage tailleft;
 	private BufferedImage tailright;
+	private File eat;
+	private File gameover;
 
 	public Snake(int x, int y, int xspeed, int yspeed) {
 		this.x = x;
@@ -42,65 +47,22 @@ public class Snake implements KeyListener {
 		}
 		try {
 			headup = ImageIO.read(getClass().getResourceAsStream("/graphics/headup.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
 			bodyup = ImageIO.read(getClass().getResourceAsStream("/graphics/bodyup.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
 			tailup = ImageIO.read(getClass().getResourceAsStream("/graphics/tailup.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
 			headdown = ImageIO.read(getClass().getResourceAsStream("/graphics/headdown.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
 			bodydown = ImageIO.read(getClass().getResourceAsStream("/graphics/bodydown.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
 			taildown = ImageIO.read(getClass().getResourceAsStream("/graphics/taildown.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
 			headleft = ImageIO.read(getClass().getResourceAsStream("/graphics/headleft.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
 			bodyleft = ImageIO.read(getClass().getResourceAsStream("/graphics/bodyleft.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
 			tailleft = ImageIO.read(getClass().getResourceAsStream("/graphics/tailleft.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
 			headright = ImageIO.read(getClass().getResourceAsStream("/graphics/headright.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
 			bodyright = ImageIO.read(getClass().getResourceAsStream("/graphics/bodyright.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
 			tailright = ImageIO.read(getClass().getResourceAsStream("/graphics/tailright.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		eat = new File("src\\sounds/eating.wav");
+		gameover = new File("src\\sounds/gameover.wav");
 	}
 
 	public void update() {
@@ -192,25 +154,29 @@ public class Snake implements KeyListener {
 			return false;
 		}
 	}
+	
 
 	public boolean eat() {
 		if (positions[0][0] == Food.x && positions[0][1] == Food.y) {
+			
+			PlaySound(eat);
+			
 			this.len += 1;
 			this.positions = new int[len][2];
 			for (int i = 0; i < oldpositions.length; i++) {
 				this.positions[i][0] = this.oldpositions[i][0];
 				this.positions[i][1] = this.oldpositions[i][1];
 			}
-
+			
 			this.positions[len - 1][0] = this.positions[len - 2][0]
 					+ (this.positions[len - 2][0] - this.positions[len - 3][0]);
 			this.positions[len - 1][1] = this.positions[len - 2][1]
 					+ (this.positions[len - 2][1] - this.positions[len - 3][1]);
-			
-			if(Game.initfps == FrontScreen.fpsarcade) {
+
+			if (Game.initfps == FrontScreen.fpsarcade) {
 				Game.fps += 1;
 			}
-			
+
 			return true;
 		} else {
 			return false;
@@ -227,6 +193,7 @@ public class Snake implements KeyListener {
 	}
 
 	public void dead() {
+		PlaySound(gameover);
 		FileWriter writefile = null;
 		BufferedWriter writer = null;
 		if (len - initlen > Integer.parseInt(Game.highscore)) {
@@ -340,7 +307,16 @@ public class Snake implements KeyListener {
 		}
 		new DisplayDead("Deathscreen", 400, 300);
 	}
-
+	private void PlaySound(File Sound) {
+		try {
+			Clip clip = AudioSystem.getClip();
+			clip.open(AudioSystem.getAudioInputStream(Sound));
+			clip.start();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		if (keyCode == 38 || keyCode == 87) {

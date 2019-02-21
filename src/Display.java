@@ -16,11 +16,13 @@ public class Display {
 	private String title;
 	public static int width, height;
 
+
 	@SuppressWarnings("static-access")
 	public Display(String title, int width, int height, Snake s) {
 		this.title = title;
 		this.width = width;
 		this.height = height;
+
 
 		createDisplay(s);
 	}

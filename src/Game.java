@@ -2,8 +2,12 @@
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 public class Game implements Runnable {
 	static Display display;
@@ -23,6 +27,9 @@ public class Game implements Runnable {
 	public static Snake s;
 	public static Food f;
 
+	private File background;
+	private static Clip clip;
+
 	@SuppressWarnings("static-access")
 	public Game(String title, int width, int height, int fps) {
 		this.width = width;
@@ -32,12 +39,19 @@ public class Game implements Runnable {
 		this.initfps = fps;
 		this.s = new Snake(6, 3, 1, 0);
 		this.f = new Food();
+		this.background = new File("src\\sounds/background.wav");
 	}
 
 	private void init() {
 		display = new Display(title, width, height, s);
 		highscore = Game.GetHighScore();
-
+		try {
+			clip = AudioSystem.getClip();
+			clip.open(AudioSystem.getAudioInputStream(background));
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private static void tick() {
@@ -45,7 +59,6 @@ public class Game implements Runnable {
 		if (s.eat()) {
 			f.update();
 		}
-
 	}
 
 	private static void render() {
@@ -105,7 +118,7 @@ public class Game implements Runnable {
 	}
 
 	public synchronized static void stop() {
-
+		clip.stop();
 		if (!running)
 			return;
 
@@ -176,7 +189,7 @@ public class Game implements Runnable {
 				} catch (Exception e) {
 					return "0";
 				}
-			} 
+			}
 		} else {
 			try {
 				readFile = new FileReader("highscoreArcade.dat");

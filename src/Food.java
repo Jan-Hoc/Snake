@@ -28,4 +28,5 @@ public class Food {
 		g.drawImage(apple, (this.x * Game.s.scl),	(this.y * Game.s.scl), 25, 25, null);
 
 	}
+
 }

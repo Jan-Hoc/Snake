@@ -19,8 +19,8 @@ public class FrontScreen {
 	private String title = "Choose Difficulty!";
 	private int width = 1200;
 	private int height = 310;
-        private int widthscreen;
-        private int heightscreen;
+    public static int widthscreen;
+    public static int heightscreen;
         
 	public FrontScreen(){
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
