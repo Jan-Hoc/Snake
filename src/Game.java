@@ -123,6 +123,7 @@ public class Game implements Runnable {
 			return;
 
 		running = false;
+		
 		try {
 			thread.join();
 		} catch (InterruptedException e) {

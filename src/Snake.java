@@ -92,7 +92,6 @@ public class Snake implements KeyListener {
 			Game.running = false;
 			dead();
 		}
-
 	}
 
 	public void show(Graphics g) {
