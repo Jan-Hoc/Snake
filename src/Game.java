@@ -39,7 +39,7 @@ public class Game implements Runnable {
 		this.initfps = fps;
 		this.s = new Snake(6, 3, 1, 0);
 		this.f = new Food();
-		this.background = new File("src\\sounds/background.wav");
+		this.background = new File("src/sounds/background.wav");
 	}
 
 	private void init() {

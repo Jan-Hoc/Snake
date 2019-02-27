@@ -61,8 +61,8 @@ public class Snake implements KeyListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		eat = new File("src\\sounds/eating.wav");
-		gameover = new File("src\\sounds/gameover.wav");
+		eat = new File("src/sounds/eating.wav");
+		gameover = new File("src/sounds/gameover.wav");
 	}
 
 	public void update() {
